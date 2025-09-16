@@ -748,6 +748,120 @@ button,
   animation: messageReveal 1s ease-out forwards;
 }
 
+/* Typewriter Animation */
+.typewriter-section {
+  opacity: 0;
+  transform: translateY(20px);
+  margin-bottom: 1.5rem;
+}
+
+.typewriter-section.active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease;
+}
+
+.typewriter {
+  font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+  line-height: 1.7;
+  color: #333;
+  margin: 0;
+  padding: 0.8rem 0;
+  border-right: 2px solid #ff6b6b;
+  white-space: normal;
+  overflow: visible;
+  width: 100%;
+  opacity: 1;
+}
+
+.typewriter.typing {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typewriter 3s steps(60, end) forwards, blinkCursor 0.8s infinite;
+}
+
+.typewriter.typing-complete {
+  border-right: none;
+  white-space: normal;
+  width: 100%;
+  animation: none;
+}
+
+@keyframes typewriter {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes blinkCursor {
+  0%, 50% {
+    border-color: #ff6b6b;
+  }
+  51%, 100% {
+    border-color: transparent;
+  }
+}
+
+/* Mobile optimizations for typewriter */
+@media (max-width: 768px) {
+  .typewriter {
+    font-size: clamp(0.85rem, 4vw, 1rem);
+    line-height: 1.6;
+    padding: 0.5rem 0;
+  }
+  
+  .typewriter.typing {
+    animation: typewriter 2.5s steps(40, end) forwards, blinkCursor 0.8s infinite;
+  }
+  
+  .birthday-card {
+    padding: 1.5rem;
+    margin: 1rem;
+    max-width: 95vw;
+  }
+  
+  .typewriter-section {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .typewriter {
+    font-size: clamp(0.8rem, 4.5vw, 0.95rem);
+    line-height: 1.5;
+    padding: 0.3rem 0;
+  }
+  
+  .typewriter.typing {
+    animation: typewriter 2s steps(35, end) forwards, blinkCursor 0.8s infinite;
+  }
+  
+  .birthday-card {
+    padding: 1rem;
+    margin: 0.5rem;
+    max-width: 98vw;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  
+  .typewriter-section {
+    margin-bottom: 0.8rem;
+  }
+  
+  .card-header {
+    margin-bottom: 1rem;
+  }
+  
+  .signature {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+}
+
 .love-message:nth-child(1) {
   animation-delay: 1s;
 }

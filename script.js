@@ -211,11 +211,16 @@ class BirthdayUniverse {
       currentStageElement.classList.remove("active", "exiting");
       finalMessage.classList.add("active");
 
+      // Start typewriter animation after a short delay
+      setTimeout(() => {
+        this.startTypewriterAnimation();
+      }, 500);
+
       // Trigger celebration effects
       this.triggerCelebration();
 
       console.log("🎉 Final message revealed! Happy Birthday Eliza!");
-    }, 400); // Reduced from 1000ms to 400ms
+    }, 400);
   }
 
   createClickEffect(x, y) {
@@ -528,6 +533,71 @@ class BirthdayUniverse {
       // Simplify animations
       document.documentElement.style.setProperty("--animation-duration", "2s");
     }
+  }
+
+  // Typewriter animation for final message
+  startTypewriterAnimation() {
+    const sections = [
+      'section1', 'section2', 'section3', 
+      'section4', 'section5', 'section6', 'signature'
+    ];
+    
+    let currentSectionIndex = 0;
+    
+    const animateNextSection = () => {
+      if (currentSectionIndex >= sections.length) return;
+      
+      const sectionId = sections[currentSectionIndex];
+      const section = document.getElementById(sectionId);
+      const typewriter = section ? section.querySelector('.typewriter') : null;
+      
+      if (section) {
+        // Show the section
+        section.classList.add('active');
+        
+        if (typewriter) {
+          // Get the text from data attributes based on current language
+          const text = typewriter.getAttribute(`data-${this.currentLanguage}`) || typewriter.textContent.trim();
+          
+          // Clear the content and start typing animation
+          typewriter.textContent = '';
+          typewriter.classList.add('typing');
+          
+          let charIndex = 0;
+          const typingSpeed = window.innerWidth <= 768 ? 50 : 80; // Faster on mobile
+          
+          const typeChar = () => {
+            if (charIndex < text.length) {
+              typewriter.textContent += text.charAt(charIndex);
+              charIndex++;
+              setTimeout(typeChar, typingSpeed);
+            } else {
+              // Remove cursor and mark as complete
+              typewriter.classList.remove('typing');
+              typewriter.classList.add('typing-complete');
+              
+              // Move to next section after a short delay
+              setTimeout(() => {
+                currentSectionIndex++;
+                animateNextSection();
+              }, sectionId === 'signature' ? 500 : 600);
+            }
+          };
+          
+          // Start typing after a short delay
+          setTimeout(typeChar, 300);
+        } else {
+          // For signature section without typewriter class
+          setTimeout(() => {
+            currentSectionIndex++;
+            animateNextSection();
+          }, 800);
+        }
+      }
+    };
+    
+    // Start the animation
+    animateNextSection();
   }
 
   // Cleanup method

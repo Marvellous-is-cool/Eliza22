@@ -52,43 +52,59 @@ class BirthdayUniverse {
         doll.addEventListener("click", (e) => this.handleStageClick(e, i));
         doll.addEventListener("mouseenter", () => this.addHoverEffect(doll));
         doll.addEventListener("mouseleave", () => this.removeHoverEffect(doll));
-        
+
         // Mobile touch events
-        doll.addEventListener("touchstart", (e) => {
-          e.preventDefault();
-          doll.classList.add('touch-active');
-          this.addHoverEffect(doll);
-        }, { passive: false });
-        
-        doll.addEventListener("touchend", (e) => {
-          e.preventDefault();
-          doll.classList.remove('touch-active');
-          this.removeHoverEffect(doll);
-          this.handleStageClick(e, i);
-        }, { passive: false });
-        
+        doll.addEventListener(
+          "touchstart",
+          (e) => {
+            e.preventDefault();
+            doll.classList.add("touch-active");
+            this.addHoverEffect(doll);
+          },
+          { passive: false }
+        );
+
+        doll.addEventListener(
+          "touchend",
+          (e) => {
+            e.preventDefault();
+            doll.classList.remove("touch-active");
+            this.removeHoverEffect(doll);
+            this.handleStageClick(e, i);
+          },
+          { passive: false }
+        );
+
         doll.addEventListener("touchcancel", (e) => {
-          doll.classList.remove('touch-active');
+          doll.classList.remove("touch-active");
           this.removeHoverEffect(doll);
         });
-        
+
         // Make sure the doll is tappable
-        doll.style.touchAction = 'manipulation';
-        doll.style.cursor = 'pointer';
+        doll.style.touchAction = "manipulation";
+        doll.style.cursor = "pointer";
       }
     }
 
     // Prevent default touch behaviors on the whole document
-    document.addEventListener("touchstart", (e) => {
-      // Only prevent default if not touching interactive elements
-      if (!e.target.closest('.doll') && !e.target.closest('.lang-btn')) {
-        e.preventDefault();
-      }
-    }, { passive: false });
+    document.addEventListener(
+      "touchstart",
+      (e) => {
+        // Only prevent default if not touching interactive elements
+        if (!e.target.closest(".doll") && !e.target.closest(".lang-btn")) {
+          e.preventDefault();
+        }
+      },
+      { passive: false }
+    );
 
-    document.addEventListener("touchmove", (e) => {
-      e.preventDefault();
-    }, { passive: false });
+    document.addEventListener(
+      "touchmove",
+      (e) => {
+        e.preventDefault();
+      },
+      { passive: false }
+    );
 
     // Add keyboard navigation
     document.addEventListener("keydown", (e) => {
@@ -536,23 +552,31 @@ class BirthdayUniverse {
     if (langToggle) {
       // Desktop click
       langToggle.addEventListener("click", () => this.toggleLanguage());
-      
+
       // Mobile touch events
-      langToggle.addEventListener("touchstart", (e) => {
-        e.stopPropagation();
-        langToggle.style.transform = "translateY(0px) scale(0.95)";
-      }, { passive: false });
-      
-      langToggle.addEventListener("touchend", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        langToggle.style.transform = "";
-        this.toggleLanguage();
-      }, { passive: false });
-      
+      langToggle.addEventListener(
+        "touchstart",
+        (e) => {
+          e.stopPropagation();
+          langToggle.style.transform = "translateY(0px) scale(0.95)";
+        },
+        { passive: false }
+      );
+
+      langToggle.addEventListener(
+        "touchend",
+        (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          langToggle.style.transform = "";
+          this.toggleLanguage();
+        },
+        { passive: false }
+      );
+
       // Ensure button is tappable
-      langToggle.style.touchAction = 'manipulation';
-      langToggle.style.cursor = 'pointer';
+      langToggle.style.touchAction = "manipulation";
+      langToggle.style.cursor = "pointer";
     }
   }
 

@@ -87,7 +87,9 @@ body {
 }
 
 /* Ensure all interactive elements are touch-friendly */
-button, .doll, .lang-btn {
+button,
+.doll,
+.lang-btn {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -966,47 +968,46 @@ button, .doll, .lang-btn {
     min-height: 44px;
     min-width: 100px;
   }
-  
+
   .doll {
     min-width: 100px;
     min-height: 100px;
     padding: 20px;
   }
-  
+
   .doll-body {
     font-size: clamp(3rem, 20vw, 5rem);
   }
-  
+
   .romantic-message {
     padding: 1rem;
     margin: 1rem 0;
   }
-  
+
   .love-whisper {
     font-size: clamp(1rem, 5vw, 1.4rem);
   }
-  
+
   .love-hint {
     font-size: clamp(0.8rem, 4vw, 1rem);
   }
 }
 
-  .flag {
-    font-size: 14px;
-  }
+.flag {
+  font-size: 14px;
+}
 
-  .birthday-card {
-    padding: 1.5rem 1rem;
-  }
+.birthday-card {
+  padding: 1.5rem 1rem;
+}
 
-  .stage-title {
-    font-size: clamp(1.5rem, 8vw, 2.5rem);
-  }
+.stage-title {
+  font-size: clamp(1.5rem, 8vw, 2.5rem);
+}
 
-  .instruction {
-    font-size: clamp(0.9rem, 4vw, 1rem);
-    padding: 0 1rem;
-  }
+.instruction {
+  font-size: clamp(0.9rem, 4vw, 1rem);
+  padding: 0 1rem;
 }
 
 /* Dark mode considerations */

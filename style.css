@@ -79,6 +79,22 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Mobile Touch Enhancement */
+.touch-active {
+  transform: scale(1.05) rotate(3deg) !important;
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8)) !important;
+  animation-play-state: paused !important;
+}
+
+/* Ensure all interactive elements are touch-friendly */
+button, .doll, .lang-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 /* Stage Management - 3D Layered Effect */
 .stage {
   position: absolute;
@@ -377,14 +393,25 @@ body {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   animation: float 3s ease-in-out infinite;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  min-width: 120px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.doll:hover {
+.doll:hover,
+.doll.touch-active {
   transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.9));
 }
 
 .doll:active {
   transform: scale(0.95);
+  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 1));
 }
 
 .doll-body {
@@ -936,7 +963,33 @@ body {
     padding: 8px 12px;
     font-size: 11px;
     gap: 6px;
+    min-height: 44px;
+    min-width: 100px;
   }
+  
+  .doll {
+    min-width: 100px;
+    min-height: 100px;
+    padding: 20px;
+  }
+  
+  .doll-body {
+    font-size: clamp(3rem, 20vw, 5rem);
+  }
+  
+  .romantic-message {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .love-whisper {
+    font-size: clamp(1rem, 5vw, 1.4rem);
+  }
+  
+  .love-hint {
+    font-size: clamp(0.8rem, 4vw, 1rem);
+  }
+}
 
   .flag {
     font-size: 14px;

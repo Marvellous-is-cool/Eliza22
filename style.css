@@ -10,6 +10,10 @@ body {
   height: 100%;
   overflow: hidden;
   font-family: "Poppins", sans-serif;
+  /* Performance optimizations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -18,6 +22,9 @@ body {
   perspective: 2000px;
   transform-style: preserve-3d;
   overflow-x: hidden;
+  /* Hardware acceleration */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 /* Language Toggle Button */
@@ -46,8 +53,9 @@ body {
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  will-change: transform, box-shadow;
 }
 
 .lang-btn:hover {
@@ -57,33 +65,36 @@ body {
     rgba(255, 255, 255, 0.2)
   );
   border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  transition: all 0.12s ease;
 }
 
 .lang-btn:active {
-  transform: translateY(0px);
+  transform: translateY(0px) scale(0.98);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.08s ease;
 }
 
 .flag {
   font-size: 18px;
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
 }
 
 .lang-btn:hover .flag {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 .lang-text {
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
 }
 
 /* Mobile Touch Enhancement */
 .touch-active {
-  transform: scale(1.05) rotate(3deg) !important;
-  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8)) !important;
+  transform: scale(1.03) rotate(2deg) !important;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)) !important;
   animation-play-state: paused !important;
+  transition: all 0.08s ease !important;
 }
 
 /* Ensure all interactive elements are touch-friendly */
@@ -109,12 +120,13 @@ button,
   justify-content: center;
   opacity: 0;
   visibility: hidden;
-  transition: all 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform: scale(0.7) translateZ(-200px) rotateY(15deg);
   backdrop-filter: blur(10px);
   z-index: 1;
   perspective: 1000px;
   transform-style: preserve-3d;
+  will-change: transform, opacity;
 }
 
 .stage.active {
@@ -123,6 +135,7 @@ button,
   transform: scale(1) translateZ(0px) rotateY(0deg);
   backdrop-filter: blur(0px);
   z-index: 10;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .stage.behind-1 {
@@ -131,6 +144,7 @@ button,
   transform: scale(0.85) translateZ(-100px) rotateY(8deg);
   backdrop-filter: blur(5px);
   z-index: 9;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .stage.behind-2 {
@@ -139,6 +153,7 @@ button,
   transform: scale(0.75) translateZ(-200px) rotateY(12deg);
   backdrop-filter: blur(8px);
   z-index: 8;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .stage.behind-3 {
@@ -147,6 +162,7 @@ button,
   transform: scale(0.65) translateZ(-300px) rotateY(16deg);
   backdrop-filter: blur(12px);
   z-index: 7;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .stage.behind-4 {
@@ -155,12 +171,14 @@ button,
   transform: scale(0.55) translateZ(-400px) rotateY(20deg);
   backdrop-filter: blur(15px);
   z-index: 6;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .stage.exiting {
   opacity: 0;
-  transform: scale(1.2) translateZ(50px) rotateY(-10deg);
-  backdrop-filter: blur(20px);
+  transform: scale(1.1) translateZ(30px) rotateY(-5deg);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53);
 }
 
 /* Starfield Background */
@@ -253,19 +271,21 @@ button,
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3);
-  animation: romanticGlow 3s ease-in-out infinite alternate;
+  animation: romanticGlow 2s ease-in-out infinite alternate;
   cursor: pointer;
-  transition: all 0.5s ease;
+  transition: all 0.25s ease;
+  will-change: transform, box-shadow;
 }
 
 .romantic-message:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 15px 45px rgba(255, 182, 193, 0.6);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(255, 182, 193, 0.5);
   background: linear-gradient(
     135deg,
     rgba(255, 182, 193, 0.3),
     rgba(255, 105, 180, 0.2)
   );
+  transition: all 0.2s ease;
 }
 
 .love-whisper {
@@ -393,7 +413,7 @@ button,
 .doll {
   position: relative;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   animation: float 3s ease-in-out infinite;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -403,17 +423,20 @@ button,
   display: flex;
   align-items: center;
   justify-content: center;
+  will-change: transform, filter;
 }
 
 .doll:hover,
 .doll.touch-active {
-  transform: scale(1.1) rotate(5deg);
-  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.9));
+  transform: scale(1.08) rotate(3deg);
+  filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.8));
+  transition: all 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .doll:active {
-  transform: scale(0.95);
-  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 1));
+  transform: scale(0.98);
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1));
+  transition: all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .doll-body {

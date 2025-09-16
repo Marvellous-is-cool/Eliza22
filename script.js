@@ -128,30 +128,28 @@ class BirthdayUniverse {
 
     this.clickCount++;
 
-    // Create click effect
+    // Create immediate visual feedback
     this.createClickEffect(event.clientX, event.clientY);
+    this.createParticleBurst(event.clientX, event.clientY);
 
     // Play sound effect
     this.playClickSound();
 
-    // Create burst of particles
-    this.createParticleBurst(event.clientX, event.clientY);
-
-    // Add screen shake effect
+    // Add subtle screen shake effect
     this.addScreenShake();
 
     console.log(
       `🎭 Stage ${stageNumber} clicked! Total clicks: ${this.clickCount}`
     );
 
-    // Move to next stage or final message
+    // Move to next stage or final message with minimal delay
     setTimeout(() => {
       if (stageNumber === this.totalStages) {
         this.showFinalMessage();
       } else {
         this.nextStage();
       }
-    }, 1000);
+    }, 250); // Reduced from 1000ms to 250ms
   }
 
   nextStage() {
@@ -217,7 +215,7 @@ class BirthdayUniverse {
       this.triggerCelebration();
 
       console.log("🎉 Final message revealed! Happy Birthday Eliza!");
-    }, 1000);
+    }, 400); // Reduced from 1000ms to 400ms
   }
 
   createClickEffect(x, y) {

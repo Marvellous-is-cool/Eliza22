@@ -1,0 +1,1023 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
+  perspective: 2000px;
+  transform-style: preserve-3d;
+  overflow-x: hidden;
+}
+
+/* Language Toggle Button */
+.language-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.1)
+  );
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  backdrop-filter: blur(15px);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.lang-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.2)
+  );
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+.lang-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.flag {
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.lang-btn:hover .flag {
+  transform: scale(1.1);
+}
+
+.lang-text {
+  transition: all 0.3s ease;
+}
+
+/* Stage Management - 3D Layered Effect */
+.stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform: scale(0.7) translateZ(-200px) rotateY(15deg);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.stage.active {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateZ(0px) rotateY(0deg);
+  backdrop-filter: blur(0px);
+  z-index: 10;
+}
+
+.stage.behind-1 {
+  opacity: 0.3;
+  visibility: visible;
+  transform: scale(0.85) translateZ(-100px) rotateY(8deg);
+  backdrop-filter: blur(5px);
+  z-index: 9;
+}
+
+.stage.behind-2 {
+  opacity: 0.2;
+  visibility: visible;
+  transform: scale(0.75) translateZ(-200px) rotateY(12deg);
+  backdrop-filter: blur(8px);
+  z-index: 8;
+}
+
+.stage.behind-3 {
+  opacity: 0.15;
+  visibility: visible;
+  transform: scale(0.65) translateZ(-300px) rotateY(16deg);
+  backdrop-filter: blur(12px);
+  z-index: 7;
+}
+
+.stage.behind-4 {
+  opacity: 0.1;
+  visibility: visible;
+  transform: scale(0.55) translateZ(-400px) rotateY(20deg);
+  backdrop-filter: blur(15px);
+  z-index: 6;
+}
+
+.stage.exiting {
+  opacity: 0;
+  transform: scale(1.2) translateZ(50px) rotateY(-10deg);
+  backdrop-filter: blur(20px);
+}
+
+/* Starfield Background */
+.starfield {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.starfield::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(2px 2px at 20px 30px, #eee, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+    radial-gradient(
+      1px 1px at 130px 80px,
+      rgba(255, 255, 255, 0.6),
+      transparent
+    ),
+    radial-gradient(2px 2px at 160px 30px, #eee, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: twinkle 4s infinite alternate;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+/* Content Styling */
+.content {
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+/* Typography */
+.welcome-title {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.stage-title {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Romantic Messages Styling */
+.romantic-message {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 182, 193, 0.2),
+    rgba(255, 105, 180, 0.1)
+  );
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3);
+  animation: romanticGlow 3s ease-in-out infinite alternate;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.romantic-message:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 15px 45px rgba(255, 182, 193, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 182, 193, 0.3),
+    rgba(255, 105, 180, 0.2)
+  );
+}
+
+.love-whisper {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
+  font-weight: 600;
+  color: #ffb6c1;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(255, 182, 193, 0.8);
+  animation: whisperFloat 4s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.romantic-message:hover .love-whisper {
+  color: #ff69b4;
+  text-shadow: 0 0 25px rgba(255, 105, 180, 1);
+  transform: scale(1.1);
+}
+
+.love-hint {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+  font-weight: 400;
+  color: #fff;
+  opacity: 0.9;
+  font-style: italic;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.romantic-message:hover .love-hint {
+  opacity: 1;
+  color: #ffe4e1;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes romanticGlow {
+  0% {
+    box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3);
+    transform: translateY(0px);
+  }
+  100% {
+    box-shadow: 0 12px 40px rgba(255, 182, 193, 0.5);
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes whisperFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
+}
+
+.birthday-title {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(3rem, 10vw, 5rem);
+  font-weight: 700;
+  background: linear-gradient(45deg, #ff6b6b, #feca57);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+.name-title {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 700;
+  color: #ff6b6b;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 15px rgba(255, 107, 107, 0.6);
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+  to {
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+      0 0 40px rgba(255, 255, 255, 0.6);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Doll Container */
+.doll-container {
+  margin: 2rem 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.doll {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation: float 3s ease-in-out infinite;
+}
+
+.doll:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.doll:active {
+  transform: scale(0.95);
+}
+
+.doll-body {
+  font-size: clamp(4rem, 12vw, 8rem);
+  position: relative;
+  z-index: 5;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.6));
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+/* Stage-specific Animations */
+.doll-1 .sparkle {
+  position: absolute;
+  font-size: 2rem;
+  animation: sparkleRotate 2s linear infinite;
+}
+
+.sparkle-1 {
+  top: -30px;
+  left: -30px;
+  animation-delay: 0s;
+}
+
+.sparkle-2 {
+  bottom: -30px;
+  right: -30px;
+  animation-delay: 1s;
+}
+
+@keyframes sparkleRotate {
+  0% {
+    transform: rotate(0deg) translateX(40px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(40px) rotate(-360deg);
+  }
+}
+
+/* Stage 2: Garden */
+.doll-2 .petals {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.petal {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: petalSway 3s ease-in-out infinite;
+}
+
+.petal:nth-child(1) {
+  top: -60px;
+  left: 0;
+  animation-delay: 0s;
+}
+
+.petal:nth-child(2) {
+  top: 0;
+  right: -60px;
+  animation-delay: 0.5s;
+}
+
+.petal:nth-child(3) {
+  bottom: -60px;
+  left: 0;
+  animation-delay: 1s;
+}
+
+.petal:nth-child(4) {
+  top: 0;
+  left: -60px;
+  animation-delay: 1.5s;
+}
+
+@keyframes petalSway {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+  }
+}
+
+/* Stage 3: Crystal Cave */
+.doll-3 .crystals {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.crystal {
+  position: absolute;
+  font-size: 1.8rem;
+  animation: crystalPulse 2s ease-in-out infinite;
+}
+
+.crystal:nth-child(1) {
+  top: -70px;
+  left: -20px;
+  animation-delay: 0s;
+}
+
+.crystal:nth-child(2) {
+  top: -20px;
+  right: -70px;
+  animation-delay: 0.3s;
+}
+
+.crystal:nth-child(3) {
+  bottom: -70px;
+  right: -20px;
+  animation-delay: 0.6s;
+}
+
+.crystal:nth-child(4) {
+  bottom: -20px;
+  left: -70px;
+  animation-delay: 0.9s;
+}
+
+@keyframes crystalPulse {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.2) rotate(90deg);
+    filter: brightness(1.5);
+  }
+}
+
+/* Stage 4: Celestial Dance */
+.doll-4 .celestial-bodies {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.celestial {
+  position: absolute;
+  font-size: 1.6rem;
+  animation: celestialOrbit 4s linear infinite;
+}
+
+.celestial:nth-child(1) {
+  animation-delay: 0s;
+}
+.celestial:nth-child(2) {
+  animation-delay: 0.8s;
+}
+.celestial:nth-child(3) {
+  animation-delay: 1.6s;
+}
+.celestial:nth-child(4) {
+  animation-delay: 2.4s;
+}
+.celestial:nth-child(5) {
+  animation-delay: 3.2s;
+}
+
+@keyframes celestialOrbit {
+  0% {
+    transform: rotate(0deg) translateX(80px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(80px) rotate(-360deg);
+  }
+}
+
+/* Stage 5: Heart of Universe */
+.doll-5 .love-hearts {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.heart {
+  position: absolute;
+  font-size: 2rem;
+  animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+.heart:nth-child(1) {
+  top: -50px;
+  left: -25px;
+  animation-delay: 0s;
+}
+
+.heart:nth-child(2) {
+  right: -50px;
+  top: -25px;
+  animation-delay: 0.2s;
+}
+
+.heart:nth-child(3) {
+  bottom: -50px;
+  right: -25px;
+  animation-delay: 0.4s;
+}
+
+.heart:nth-child(4) {
+  left: -50px;
+  bottom: -25px;
+  animation-delay: 0.6s;
+}
+
+@keyframes heartBeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.3);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+/* Instructions */
+.instruction {
+  font-size: clamp(1rem, 4vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 2rem;
+  font-weight: 300;
+  animation: fadeInOut 3s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Birthday Card */
+.birthday-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.85)
+  );
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: cardEntrance 2s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes cardEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotateY(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.card-body {
+  position: relative;
+}
+
+.message {
+  text-align: left;
+  position: relative;
+  z-index: 5;
+}
+
+.love-message {
+  font-size: clamp(1rem, 3vw, 1.1rem);
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: messageReveal 1s ease-out forwards;
+}
+
+.love-message:nth-child(1) {
+  animation-delay: 1s;
+}
+.love-message:nth-child(2) {
+  animation-delay: 2s;
+}
+.love-message:nth-child(3) {
+  animation-delay: 3s;
+}
+
+@keyframes messageReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.signature {
+  text-align: center;
+  margin-top: 2rem;
+  font-style: italic;
+  color: #666;
+  animation: messageReveal 1s ease-out 4s forwards;
+  opacity: 0;
+}
+
+.lover-name {
+  font-size: 1.2rem;
+  color: #ff6b6b;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.birthday-wish {
+  font-size: 1.4rem;
+  color: #ff1493;
+  font-weight: 700;
+  margin-top: 1rem;
+  text-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+  animation: birthdayPulse 2s ease-in-out infinite;
+}
+
+.final-wish {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite,
+    finalWishGlow 2s ease-in-out infinite alternate;
+  font-weight: 600;
+  font-size: 1.1em;
+  padding: 1rem;
+  border-radius: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  margin: 1.5rem 0;
+}
+
+@keyframes birthdayPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0 0 30px rgba(255, 20, 147, 1);
+  }
+}
+
+@keyframes finalWishGlow {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+  }
+}
+
+/* Floating Elements */
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.float-element {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.7;
+  animation: floatingElements 6s ease-in-out infinite;
+}
+
+.float-element:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.float-element:nth-child(2) {
+  top: 20%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.float-element:nth-child(3) {
+  bottom: 30%;
+  left: 5%;
+  animation-delay: 2s;
+}
+
+.float-element:nth-child(4) {
+  bottom: 20%;
+  right: 20%;
+  animation-delay: 3s;
+}
+
+.float-element:nth-child(5) {
+  top: 50%;
+  left: 80%;
+  animation-delay: 4s;
+}
+
+.float-element:nth-child(6) {
+  top: 70%;
+  left: 15%;
+  animation-delay: 5s;
+}
+
+@keyframes floatingElements {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Particle Canvas */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Click Effect */
+.click-effect {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  font-size: 2rem;
+  animation: clickRipple 1s ease-out forwards;
+}
+
+@keyframes clickRipple {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(3) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .language-toggle {
+    top: 15px;
+    right: 15px;
+  }
+
+  .lang-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+
+  .flag {
+    font-size: 16px;
+  }
+
+  .birthday-card {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+  }
+
+  .doll-container {
+    height: 150px;
+  }
+
+  .doll-body {
+    font-size: clamp(3rem, 15vw, 6rem);
+  }
+
+  .sparkle,
+  .petal,
+  .crystal,
+  .celestial,
+  .heart {
+    font-size: 1.2rem;
+  }
+
+  .crystal:nth-child(1),
+  .crystal:nth-child(3) {
+    top: -50px;
+    bottom: -50px;
+  }
+
+  .crystal:nth-child(2),
+  .crystal:nth-child(4) {
+    right: -50px;
+    left: -50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .language-toggle {
+    top: 10px;
+    right: 10px;
+  }
+
+  .lang-btn {
+    padding: 8px 12px;
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .flag {
+    font-size: 14px;
+  }
+
+  .birthday-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .stage-title {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+  }
+
+  .instruction {
+    font-size: clamp(0.9rem, 4vw, 1rem);
+    padding: 0 1rem;
+  }
+}
+
+/* Dark mode considerations */
+@media (prefers-color-scheme: dark) {
+  .birthday-card {
+    background: linear-gradient(
+      135deg,
+      rgba(30, 30, 30, 0.95),
+      rgba(40, 40, 40, 0.85)
+    );
+  }
+
+  .love-message {
+    color: #e0e0e0;
+  }
+
+  .signature {
+    color: #b0b0b0;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .welcome-title,
+  .stage-title,
+  .birthday-title {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  .instruction {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .stage {
+    position: static;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    page-break-inside: avoid;
+  }
+
+  .starfield,
+  #particle-canvas {
+    display: none;
+  }
+
+  .birthday-card {
+    background: white;
+    box-shadow: none;
+  }
+}
